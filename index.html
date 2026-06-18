@@ -1,0 +1,1324 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- =========================================================
+       SEO / METADATA
+       ========================================================= -->
+  <title>Adjudica · Radar de licitaciones públicas para pymes argentinas</title>
+  <meta name="description" content="Adjudica monitorea cada mañana más de 700 licitaciones del Estado (COMPR.AR y Buenos Aires Compras), filtra las que le sirven a tu pyme y te las envía al mail analizadas con inteligencia artificial. Probá gratis." />
+  <meta name="keywords" content="licitaciones, licitaciones públicas, proveedores del Estado, compras públicas, pymes Argentina, COMPR.AR, PBAC, Buenos Aires Compras" />
+  <meta name="author" content="Adjudica" />
+  <meta name="robots" content="index, follow" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Adjudica · Radar de licitaciones para pymes" />
+  <meta property="og:description" content="Las licitaciones del Estado que tu empresa puede ganar, en tu mail cada mañana." />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="es_AR" />
+
+  <!-- Favicon (emoji inline, sin archivos externos) -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📡</text></svg>" />
+
+  <!-- =========================================================
+       TIPOGRAFÍAS (Google Fonts: Montserrat + Inter)
+       ========================================================= -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* =========================================================
+       1. VARIABLES Y RESET
+       ========================================================= */
+    :root {
+      /* Paleta de marca */
+      --color-primary: #0d3b66;
+      --color-primary-dark: #0a2d4f;
+      --color-primary-soft: #1a4f80;
+      --color-accent: #f5a623;
+      --color-accent-dark: #e0930b;
+      --color-bg-light: #eef3f8;
+      --color-green: #2e9e5b;
+      --color-red: #d9534f;
+      --color-amber: #f5a623;
+      --color-text: #3d3d3d;
+      --color-text-soft: #6b7280;
+      --color-text-muted: #94a3b8;
+      --color-white: #ffffff;
+      --color-border: #e5ecf3;
+      --color-border-strong: #d0dbe6;
+
+      /* Tipografía */
+      --font-display: 'Montserrat', system-ui, -apple-system, "Segoe UI", sans-serif;
+      --font-body: 'Inter', system-ui, -apple-system, "Segoe UI", sans-serif;
+
+      /* Radios */
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-xl: 24px;
+      --radius-pill: 999px;
+
+      /* Sombras (sutiles, profesionales) */
+      --shadow-xs: 0 1px 2px rgba(13, 59, 102, 0.04);
+      --shadow-sm: 0 1px 3px rgba(13, 59, 102, 0.06), 0 1px 2px rgba(13, 59, 102, 0.04);
+      --shadow-md: 0 4px 16px rgba(13, 59, 102, 0.08);
+      --shadow-lg: 0 12px 40px rgba(13, 59, 102, 0.12);
+      --shadow-xl: 0 24px 60px rgba(13, 59, 102, 0.18);
+
+      /* Layout */
+      --container-max: 1180px;
+      --header-height: 72px;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.6;
+      color: var(--color-text);
+      background: var(--color-white);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+    }
+
+    img, svg { display: block; max-width: 100%; }
+
+    a { color: inherit; text-decoration: none; }
+
+    button { font-family: inherit; cursor: pointer; border: none; background: none; }
+
+    /* Container reutilizable */
+    .container {
+      width: 100%;
+      max-width: var(--container-max);
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* =========================================================
+       2. TIPOGRAFÍA GLOBAL
+       ========================================================= */
+    h1, h2, h3, h4 {
+      font-family: var(--font-display);
+      color: var(--color-primary);
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+    }
+
+    h1 {
+      font-size: clamp(2.25rem, 5vw, 3.5rem);
+      font-weight: 800;
+    }
+
+    h2 {
+      font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+      font-weight: 700;
+    }
+
+    h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+    }
+
+    p { color: var(--color-text); }
+
+    /* Eyebrow / kicker común a las secciones */
+    .eyebrow {
+      display: inline-block;
+      font-family: var(--font-body);
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--color-accent-dark);
+      margin-bottom: 14px;
+    }
+
+    .section-intro {
+      max-width: 720px;
+      margin: 0 auto 56px;
+      text-align: center;
+    }
+
+    .section-intro p {
+      color: var(--color-text-soft);
+      font-size: 1.05rem;
+      margin-top: 14px;
+    }
+
+    /* =========================================================
+       3. BOTONES
+       ========================================================= */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: 0.95rem;
+      padding: 12px 22px;
+      border-radius: var(--radius-pill);
+      transition: transform 0.15s ease, box-shadow 0.2s ease, background 0.2s ease;
+      white-space: nowrap;
+      line-height: 1;
+    }
+
+    .btn-primary {
+      background: var(--color-accent);
+      color: var(--color-primary);
+      box-shadow: 0 4px 14px rgba(245, 166, 35, 0.32);
+    }
+
+    .btn-primary:hover {
+      background: var(--color-accent-dark);
+      transform: translateY(-1px);
+      box-shadow: 0 8px 22px rgba(245, 166, 35, 0.4);
+    }
+
+    .btn-large {
+      font-size: 1.05rem;
+      padding: 16px 30px;
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--color-white);
+      border: 1px solid rgba(255,255,255,0.3);
+    }
+
+    .btn-ghost:hover {
+      background: rgba(255,255,255,0.1);
+    }
+
+    /* Ícono de WhatsApp dentro del botón */
+    .btn .wa-icon {
+      width: 18px;
+      height: 18px;
+      fill: currentColor;
+      flex-shrink: 0;
+    }
+
+    /* =========================================================
+       4. HEADER FIJO
+       ========================================================= */
+    .site-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: var(--header-height);
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: saturate(180%) blur(12px);
+      -webkit-backdrop-filter: saturate(180%) blur(12px);
+      border-bottom: 1px solid var(--color-border);
+      z-index: 100;
+    }
+
+    .header-inner {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1.35rem;
+      color: var(--color-primary);
+      letter-spacing: -0.02em;
+    }
+
+    .brand-radar {
+      font-size: 1.2rem;
+      display: inline-block;
+      animation: radar-pulse 2.6s ease-in-out infinite;
+      transform-origin: center;
+    }
+
+    @keyframes radar-pulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.12); opacity: 0.85; }
+    }
+
+    /* =========================================================
+       5. HERO
+       ========================================================= */
+    .hero {
+      position: relative;
+      padding: calc(var(--header-height) + 72px) 0 96px;
+      background:
+        radial-gradient(60% 80% at 90% 0%, rgba(245, 166, 35, 0.08) 0%, transparent 60%),
+        radial-gradient(50% 60% at 10% 20%, rgba(13, 59, 102, 0.05) 0%, transparent 60%),
+        var(--color-white);
+      overflow: hidden;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.05fr 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 14px;
+      background: rgba(13, 59, 102, 0.06);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-pill);
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--color-primary);
+      margin-bottom: 24px;
+    }
+
+    .hero-tag .dot {
+      width: 8px;
+      height: 8px;
+      background: var(--color-green);
+      border-radius: 50%;
+      box-shadow: 0 0 0 0 rgba(46, 158, 91, 0.6);
+      animation: live-dot 2s ease-out infinite;
+    }
+
+    @keyframes live-dot {
+      0% { box-shadow: 0 0 0 0 rgba(46, 158, 91, 0.5); }
+      70% { box-shadow: 0 0 0 8px rgba(46, 158, 91, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(46, 158, 91, 0); }
+    }
+
+    .hero h1 {
+      margin-bottom: 22px;
+    }
+
+    .hero h1 .accent {
+      color: var(--color-accent-dark);
+    }
+
+    .hero-subtitle {
+      font-size: 1.15rem;
+      color: var(--color-text-soft);
+      max-width: 540px;
+      margin-bottom: 36px;
+      line-height: 1.6;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .hero-trust {
+      font-size: 0.85rem;
+      color: var(--color-text-muted);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* ----- Mockup del email (signature visual del hero) ----- */
+    .hero-mock {
+      position: relative;
+    }
+
+    .email-card {
+      background: var(--color-white);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-xl);
+      overflow: hidden;
+      transform: perspective(1400px) rotateY(-3deg) rotateX(2deg);
+      transition: transform 0.4s ease;
+    }
+
+    .email-card:hover {
+      transform: perspective(1400px) rotateY(-1deg) rotateX(1deg);
+    }
+
+    .email-header {
+      padding: 14px 18px;
+      background: var(--color-bg-light);
+      border-bottom: 1px solid var(--color-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      color: var(--color-text-soft);
+    }
+
+    .email-header .email-from {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 500;
+      color: var(--color-primary);
+    }
+
+    .email-body {
+      padding: 22px 22px 24px;
+    }
+
+    .email-subject {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: var(--color-primary);
+      margin-bottom: 4px;
+    }
+
+    .email-count {
+      font-size: 0.85rem;
+      color: var(--color-text-soft);
+      margin-bottom: 18px;
+    }
+
+    /* Tarjeta de licitación dentro del email */
+    .tender-card {
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: 16px 16px 14px;
+      background: var(--color-white);
+    }
+
+    .tender-card + .tender-card {
+      margin-top: 12px;
+    }
+
+    .tender-card.compact {
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .tender-meta {
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .tender-title {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 0.98rem;
+      color: var(--color-primary);
+      line-height: 1.3;
+      margin-bottom: 4px;
+    }
+
+    .tender-buyer {
+      font-size: 0.82rem;
+      color: var(--color-text-soft);
+      margin-bottom: 12px;
+    }
+
+    .relevance {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.78rem;
+      color: var(--color-text-soft);
+      margin-bottom: 12px;
+    }
+
+    .relevance-bar {
+      flex: 1;
+      height: 4px;
+      background: var(--color-border);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .relevance-fill {
+      height: 100%;
+      background: var(--color-green);
+      border-radius: 999px;
+    }
+
+    .relevance-fill.mid { background: var(--color-amber); }
+
+    .checklist {
+      list-style: none;
+      margin: 0 0 12px;
+      padding: 0;
+      font-size: 0.82rem;
+    }
+
+    .checklist li {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 3px 0;
+      color: var(--color-text);
+    }
+
+    .checklist .light {
+      flex-shrink: 0;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      box-shadow: 0 0 0 3px rgba(0,0,0,0.04);
+    }
+
+    .light.green { background: var(--color-green); }
+    .light.amber { background: var(--color-amber); }
+    .light.red { background: var(--color-red); }
+
+    .tender-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.78rem;
+      padding-top: 10px;
+      border-top: 1px dashed var(--color-border);
+    }
+
+    .tender-deadline {
+      color: var(--color-text-soft);
+    }
+
+    .tender-deadline strong { color: var(--color-text); font-weight: 600; }
+
+    .tender-action {
+      font-weight: 600;
+      color: var(--color-accent-dark);
+    }
+
+    .tender-card.compact .tender-title {
+      margin-bottom: 2px;
+      font-size: 0.9rem;
+    }
+
+    .tender-card.compact .tender-buyer { margin-bottom: 0; font-size: 0.78rem; }
+
+    .tender-pill {
+      flex-shrink: 0;
+      padding: 4px 10px;
+      border-radius: var(--radius-pill);
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+    }
+
+    .tender-pill.green { background: rgba(46, 158, 91, 0.12); color: var(--color-green); }
+    .tender-pill.amber { background: rgba(245, 166, 35, 0.16); color: var(--color-accent-dark); }
+
+    /* =========================================================
+       6. SECCIÓN "EL PROBLEMA"
+       ========================================================= */
+    .section {
+      padding: 96px 0;
+    }
+
+    .section-alt {
+      background: var(--color-bg-light);
+    }
+
+    .problem-wrap {
+      max-width: 880px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .problem-wrap h2 {
+      margin-bottom: 24px;
+    }
+
+    .problem-wrap p {
+      font-size: 1.1rem;
+      color: var(--color-text-soft);
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    .problem-points {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 48px;
+      text-align: left;
+    }
+
+    .problem-point {
+      background: var(--color-white);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: 22px 22px 24px;
+    }
+
+    .problem-point .pp-num {
+      font-family: var(--font-display);
+      font-weight: 700;
+      color: var(--color-accent-dark);
+      font-size: 0.85rem;
+      letter-spacing: 0.08em;
+      margin-bottom: 8px;
+    }
+
+    .problem-point h4 {
+      font-family: var(--font-display);
+      font-weight: 700;
+      color: var(--color-primary);
+      font-size: 1.05rem;
+      margin-bottom: 6px;
+    }
+
+    .problem-point p {
+      font-size: 0.95rem;
+      color: var(--color-text-soft);
+      line-height: 1.55;
+    }
+
+    /* =========================================================
+       7. CÓMO FUNCIONA (pasos numerados)
+       ========================================================= */
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      counter-reset: step;
+    }
+
+    .step {
+      position: relative;
+      background: var(--color-white);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: 32px 24px 28px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    }
+
+    .step:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-md);
+      border-color: var(--color-border-strong);
+    }
+
+    .step-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--color-primary);
+      color: var(--color-white);
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1rem;
+      margin-bottom: 18px;
+    }
+
+    .step h3 {
+      font-size: 1.05rem;
+      margin-bottom: 8px;
+      color: var(--color-primary);
+    }
+
+    .step p {
+      font-size: 0.93rem;
+      color: var(--color-text-soft);
+      line-height: 1.55;
+    }
+
+    /* =========================================================
+       8. BENEFICIOS (grilla 3x2)
+       ========================================================= */
+    .benefits {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .benefit {
+      background: var(--color-white);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: 28px 26px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    }
+
+    .benefit:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+      border-color: var(--color-border-strong);
+    }
+
+    .benefit-icon {
+      font-size: 1.75rem;
+      margin-bottom: 14px;
+      display: inline-block;
+    }
+
+    .benefit h3 {
+      font-size: 1.05rem;
+      margin-bottom: 8px;
+      color: var(--color-primary);
+    }
+
+    .benefit p {
+      font-size: 0.93rem;
+      color: var(--color-text-soft);
+      line-height: 1.55;
+    }
+
+    /* =========================================================
+       9. FRANJA DE CONFIANZA / NÚMEROS (fondo azul)
+       ========================================================= */
+    .trust {
+      background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-soft) 100%);
+      color: var(--color-white);
+      padding: 72px 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .trust::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(40% 60% at 90% 50%, rgba(245, 166, 35, 0.10) 0%, transparent 70%),
+        radial-gradient(35% 55% at 10% 80%, rgba(255, 255, 255, 0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .trust-inner {
+      position: relative;
+      text-align: center;
+    }
+
+    .trust-eyebrow {
+      color: rgba(255,255,255,0.6);
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .trust h2 {
+      color: var(--color-white);
+      font-size: clamp(1.5rem, 2.4vw, 2rem);
+      max-width: 720px;
+      margin: 0 auto 48px;
+      line-height: 1.3;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 32px;
+    }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat-num {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: clamp(1.75rem, 3.2vw, 2.5rem);
+      color: var(--color-accent);
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      margin-bottom: 8px;
+    }
+
+    .stat-label {
+      font-size: 0.92rem;
+      color: rgba(255,255,255,0.78);
+      line-height: 1.4;
+    }
+
+    /* =========================================================
+       10. PARA QUIÉN ES
+       ========================================================= */
+    .audience-wrap {
+      max-width: 820px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .audience-wrap h2 { margin-bottom: 18px; }
+    .audience-wrap p {
+      color: var(--color-text-soft);
+      font-size: 1.05rem;
+      margin-bottom: 36px;
+    }
+
+    .industries {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .industry {
+      background: var(--color-white);
+      border: 1px solid var(--color-border);
+      color: var(--color-primary);
+      padding: 10px 18px;
+      border-radius: var(--radius-pill);
+      font-size: 0.92rem;
+      font-weight: 500;
+      transition: transform 0.15s ease, border-color 0.2s ease;
+    }
+
+    .industry:hover {
+      border-color: var(--color-accent);
+      transform: translateY(-1px);
+    }
+
+    /* =========================================================
+       11. CIERRE / CTA FINAL
+       ========================================================= */
+    .final-cta {
+      padding: 96px 0;
+      background: var(--color-white);
+    }
+
+    .final-cta-card {
+      max-width: 860px;
+      margin: 0 auto;
+      text-align: center;
+      background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-soft) 100%);
+      color: var(--color-white);
+      padding: 64px 40px;
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-lg);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .final-cta-card::before {
+      content: "📡";
+      position: absolute;
+      top: -30px;
+      right: -10px;
+      font-size: 10rem;
+      opacity: 0.08;
+      transform: rotate(-15deg);
+      pointer-events: none;
+    }
+
+    .final-cta-card h2 {
+      color: var(--color-white);
+      font-size: clamp(1.75rem, 3vw, 2.4rem);
+      margin-bottom: 18px;
+      position: relative;
+    }
+
+    .final-cta-card p {
+      color: rgba(255,255,255,0.85);
+      font-size: 1.08rem;
+      max-width: 560px;
+      margin: 0 auto 32px;
+      position: relative;
+    }
+
+    .final-cta-card .btn {
+      position: relative;
+    }
+
+    .final-cta-note {
+      margin-top: 18px;
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.6);
+    }
+
+    /* =========================================================
+       12. FOOTER
+       ========================================================= */
+    .site-footer {
+      background: var(--color-bg-light);
+      border-top: 1px solid var(--color-border);
+      padding: 56px 0 32px;
+      color: var(--color-text-soft);
+      font-size: 0.92rem;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr 1fr;
+      gap: 40px;
+      margin-bottom: 36px;
+    }
+
+    .footer-brand .brand { margin-bottom: 10px; }
+    .footer-brand p { font-size: 0.95rem; max-width: 320px; }
+
+    .footer-col h4 {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 0.85rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--color-primary);
+      margin-bottom: 14px;
+    }
+
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 8px; }
+    .footer-col a:hover { color: var(--color-primary); }
+
+    .footer-bottom {
+      border-top: 1px solid var(--color-border);
+      padding-top: 24px;
+      text-align: center;
+      font-size: 0.82rem;
+      color: var(--color-text-muted);
+    }
+
+    /* =========================================================
+       13. RESPONSIVE
+       ========================================================= */
+    @media (max-width: 960px) {
+      .hero-grid { grid-template-columns: 1fr; gap: 56px; }
+      .email-card { transform: none; max-width: 480px; margin: 0 auto; }
+      .email-card:hover { transform: none; }
+      .problem-points { grid-template-columns: 1fr; }
+      .steps { grid-template-columns: repeat(2, 1fr); }
+      .benefits { grid-template-columns: repeat(2, 1fr); }
+      .stats { grid-template-columns: repeat(2, 1fr); gap: 36px 24px; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 640px) {
+      .container { padding: 0 20px; }
+      .section { padding: 72px 0; }
+      .hero { padding: calc(var(--header-height) + 48px) 0 64px; }
+
+      /* En mobile el botón del header se acorta */
+      .site-header .btn-text-long { display: none; }
+      .site-header .btn { padding: 10px 16px; font-size: 0.88rem; }
+
+      .brand { font-size: 1.2rem; }
+      .hero-actions { width: 100%; }
+      .hero-actions .btn-large { width: 100%; }
+      .hero-trust { width: 100%; justify-content: center; margin-top: 4px; }
+
+      .steps { grid-template-columns: 1fr; }
+      .benefits { grid-template-columns: 1fr; }
+      .stats { grid-template-columns: 1fr 1fr; }
+
+      .final-cta { padding: 64px 0; }
+      .final-cta-card { padding: 48px 24px; }
+
+      .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+    }
+
+    /* Respeto preferencias de movimiento reducido */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+
+    /* Foco visible accesible */
+    a:focus-visible, button:focus-visible, .btn:focus-visible {
+      outline: 2px solid var(--color-accent);
+      outline-offset: 3px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- =========================================================
+       HEADER FIJO
+       ========================================================= -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="#" class="brand" aria-label="Adjudica - Inicio">
+        <span>Adjudica</span>
+        <span class="brand-radar" aria-hidden="true">📡</span>
+      </a>
+
+      <a
+        class="btn btn-primary"
+        href="https://wa.me/5492216615155?text=Hola!%20Quiero%20saber%20m%C3%A1s%20sobre%20Adjudica%20y%20la%20prueba%20gratis%20📡"
+        target="_blank"
+        rel="noopener"
+      >
+        <svg class="wa-icon" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M19.05 4.91A9.82 9.82 0 0 0 12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91a9.82 9.82 0 0 0-2.9-7.01zM12.05 20.15h-.01a8.22 8.22 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.18 8.18 0 0 1-1.26-4.38c0-4.54 3.7-8.23 8.25-8.23 2.2 0 4.27.86 5.83 2.42a8.19 8.19 0 0 1 2.41 5.83c0 4.54-3.69 8.22-8.24 8.22zm4.51-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.12-.16.25-.64.81-.79.97-.14.16-.29.18-.54.06-.25-.12-1.05-.39-2-1.23a7.5 7.5 0 0 1-1.38-1.72c-.14-.25-.02-.38.11-.5.11-.11.25-.29.37-.43.12-.14.16-.25.25-.41.08-.16.04-.31-.02-.43-.06-.12-.56-1.35-.77-1.85-.2-.49-.41-.42-.56-.43-.14-.01-.31-.01-.48-.01-.16 0-.43.06-.66.31-.23.25-.86.84-.86 2.06 0 1.21.88 2.38 1 2.54.12.16 1.73 2.64 4.2 3.7.59.25 1.05.4 1.4.52.59.19 1.13.16 1.55.1.47-.07 1.47-.6 1.67-1.18.2-.58.2-1.07.14-1.18-.06-.1-.23-.16-.48-.28z"/>
+        </svg>
+        <span>Consultar por <span class="btn-text-long">WhatsApp</span><span class="btn-text-short" style="display:none">WSP</span></span>
+      </a>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- =========================================================
+         HERO
+         ========================================================= -->
+    <section class="hero">
+      <div class="container hero-grid">
+
+        <div class="hero-text">
+          <span class="hero-tag">
+            <span class="dot" aria-hidden="true"></span>
+            Monitoreando 700+ licitaciones · hoy
+          </span>
+
+          <h1>
+            Las licitaciones del Estado que tu empresa puede ganar,
+            <span class="accent">en tu mail cada mañana.</span>
+          </h1>
+
+          <p class="hero-subtitle">
+            Adjudica es como tener un empleado experto en licitaciones trabajando para vos las 24 horas. Revisa todos los portales del Estado, filtra lo que te sirve y te lo explica en simple. Sin que toques nada.
+          </p>
+
+          <div class="hero-actions">
+            <a
+              class="btn btn-primary btn-large"
+              href="https://wa.me/5492216615155?text=Hola!%20Quiero%20saber%20m%C3%A1s%20sobre%20Adjudica%20y%20la%20prueba%20gratis%20📡"
+              target="_blank"
+              rel="noopener"
+            >
+              <svg class="wa-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M19.05 4.91A9.82 9.82 0 0 0 12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91a9.82 9.82 0 0 0-2.9-7.01zM12.05 20.15h-.01a8.22 8.22 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.18 8.18 0 0 1-1.26-4.38c0-4.54 3.7-8.23 8.25-8.23 2.2 0 4.27.86 5.83 2.42a8.19 8.19 0 0 1 2.41 5.83c0 4.54-3.69 8.22-8.24 8.22zm4.51-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.12-.16.25-.64.81-.79.97-.14.16-.29.18-.54.06-.25-.12-1.05-.39-2-1.23a7.5 7.5 0 0 1-1.38-1.72c-.14-.25-.02-.38.11-.5.11-.11.25-.29.37-.43.12-.14.16-.25.25-.41.08-.16.04-.31-.02-.43-.06-.12-.56-1.35-.77-1.85-.2-.49-.41-.42-.56-.43-.14-.01-.31-.01-.48-.01-.16 0-.43.06-.66.31-.23.25-.86.84-.86 2.06 0 1.21.88 2.38 1 2.54.12.16 1.73 2.64 4.2 3.7.59.25 1.05.4 1.4.52.59.19 1.13.16 1.55.1.47-.07 1.47-.6 1.67-1.18.2-.58.2-1.07.14-1.18-.06-.1-.23-.16-.48-.28z"/>
+              </svg>
+              Quiero mi prueba gratis
+            </a>
+            <span class="hero-trust">✓ Sin tarjeta · sin compromiso</span>
+          </div>
+        </div>
+
+        <!-- Mockup del email matinal: signature visual del hero -->
+        <div class="hero-mock" aria-hidden="true">
+          <div class="email-card">
+            <div class="email-header">
+              <span class="email-from">📧 Adjudica · radar diario</span>
+              <span>hoy · 7:30</span>
+            </div>
+
+            <div class="email-body">
+              <div class="email-subject">Tu radar de licitaciones</div>
+              <div class="email-count">3 oportunidades nuevas para vos</div>
+
+              <!-- Tarjeta destacada con análisis IA -->
+              <div class="tender-card">
+                <div class="tender-meta">Nación · COMPR.AR</div>
+                <div class="tender-title">Servicio de limpieza integral – Hospital Posadas</div>
+                <div class="tender-buyer">Ministerio de Salud de la Nación</div>
+
+                <div class="relevance">
+                  <span>Relevancia</span>
+                  <span class="relevance-bar"><span class="relevance-fill" style="width: 88%"></span></span>
+                  <strong style="color: var(--color-primary);">88%</strong>
+                </div>
+
+                <ul class="checklist">
+                  <li><span class="light green" aria-label="Cumple"></span> Categoría y rubro habilitados</li>
+                  <li><span class="light amber" aria-label="Por revisar"></span> Falta certificado IRAM vigente</li>
+                  <li><span class="light green" aria-label="Cumple"></span> Facturación mínima cubierta</li>
+                </ul>
+
+                <div class="tender-footer">
+                  <span class="tender-deadline">Cierra <strong>22 nov</strong> · 14:00 hs</span>
+                  <span class="tender-action">Ver análisis →</span>
+                </div>
+              </div>
+
+              <!-- Tarjetas compactas -->
+              <div class="tender-card compact">
+                <div>
+                  <div class="tender-title">Insumos médicos descartables</div>
+                  <div class="tender-buyer">PAMI · Provincia Buenos Aires</div>
+                </div>
+                <span class="tender-pill green">Recomendado</span>
+              </div>
+
+              <div class="tender-card compact">
+                <div>
+                  <div class="tender-title">Provisión de alimentos secos</div>
+                  <div class="tender-buyer">Ministerio Desarrollo Social</div>
+                </div>
+                <span class="tender-pill amber">Revisar</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- =========================================================
+         PROBLEMA
+         ========================================================= -->
+    <section class="section section-alt">
+      <div class="container">
+        <div class="problem-wrap">
+          <span class="eyebrow">El problema</span>
+          <h2>Venderle al Estado es una oportunidad enorme. Encontrar la licitación correcta no lo es.</h2>
+          <p>Las oportunidades están dispersas en distintos portales, los pliegos tienen 80 páginas de lenguaje técnico, y cuando te enterás de una buena, ya cerró. Revisarlo a mano lleva más de una hora todos los días.</p>
+
+          <div class="problem-points">
+            <div class="problem-point">
+              <div class="pp-num">01</div>
+              <h4>Información dispersa</h4>
+              <p>COMPR.AR de Nación, PBAC de Provincia, portales municipales. Hay que entrar a cada uno todos los días.</p>
+            </div>
+            <div class="problem-point">
+              <div class="pp-num">02</div>
+              <h4>Pliegos imposibles</h4>
+              <p>Documentos de 80 páginas con jerga jurídica. Entender si tu pyme puede presentarse cuesta horas.</p>
+            </div>
+            <div class="problem-point">
+              <div class="pp-num">03</div>
+              <h4>Plazos que no perdonan</h4>
+              <p>Cuando te enterás de una licitación, muchas veces ya cerró. Una fecha que se pasa es plata afuera.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         CÓMO FUNCIONA
+         ========================================================= -->
+    <section class="section">
+      <div class="container">
+        <div class="section-intro">
+          <span class="eyebrow">Cómo funciona</span>
+          <h2>De una idea a un radar funcionando, en menos de un día.</h2>
+          <p>No tenés que aprender nada nuevo, ni instalar software. Configurás una vez y empezás a recibir tu radar a la mañana siguiente.</p>
+        </div>
+
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">1</div>
+            <h3>Nos contás qué vendés</h3>
+            <p>En una charla corta definimos rubros, categorías y los criterios que importan para tu pyme.</p>
+          </div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <h3>Revisamos 700+ por día</h3>
+            <p>Cada mañana automáticamente barremos COMPR.AR de Nación y Buenos Aires Compras de PBAC.</p>
+          </div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <h3>Te llega solo lo tuyo</h3>
+            <p>Recibís en tu mail un radar personalizado: solo las licitaciones que matchean con tu perfil, analizadas con IA.</p>
+          </div>
+          <div class="step">
+            <div class="step-num">4</div>
+            <h3>Analizamos los pliegos</h3>
+            <p>Cuando una te interesa, te entregamos un análisis con semáforo de requisitos y recomendación clara.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         BENEFICIOS
+         ========================================================= -->
+    <section class="section section-alt">
+      <div class="container">
+        <div class="section-intro">
+          <span class="eyebrow">Beneficios</span>
+          <h2>Todo lo que un equipo de licitaciones haría — sin contratar a nadie.</h2>
+        </div>
+
+        <div class="benefits">
+          <article class="benefit">
+            <div class="benefit-icon" aria-hidden="true">⏰</div>
+            <h3>Ahorrá una hora por día</h3>
+            <p>Convertí el revisar portales en 2 minutos de leer un mail con lo que realmente te sirve.</p>
+          </article>
+
+          <article class="benefit">
+            <div class="benefit-icon" aria-hidden="true">🤖</div>
+            <h3>Inteligencia artificial</h3>
+            <p>Resumimos cada pliego de 80 páginas en 4 líneas que se entienden a la primera lectura.</p>
+          </article>
+
+          <article class="benefit">
+            <div class="benefit-icon" aria-hidden="true">🚦</div>
+            <h3>Semáforo de requisitos</h3>
+            <p>Sabé qué cumplís, qué te falta y qué te deja afuera — antes de invertir tiempo en preparar la oferta.</p>
+          </article>
+
+          <article class="benefit">
+            <div class="benefit-icon" aria-hidden="true">📅</div>
+            <h3>Nunca más tarde</h3>
+            <p>Te avisamos todas las fechas clave para que no se te pase ninguna: apertura, aclaraciones, cierre.</p>
+          </article>
+
+          <article class="benefit">
+            <div class="benefit-icon" aria-hidden="true">🇦🇷</div>
+            <h3>Nación y Provincia</h3>
+            <p>Monitoreamos COMPR.AR y Buenos Aires Compras todos los días hábiles, sin que tengas que pedirlo.</p>
+          </article>
+
+          <article class="benefit">
+            <div class="benefit-icon" aria-hidden="true">💡</div>
+            <h3>Te decimos si conviene</h3>
+            <p>No solo te avisamos: te damos una recomendación clara de si vale la pena presentarse o no.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         FRANJA DE CONFIANZA / NÚMEROS
+         ========================================================= -->
+    <section class="trust">
+      <div class="container trust-inner">
+        <div class="trust-eyebrow">Datos del sistema</div>
+        <h2>La infraestructura silenciosa detrás de tu radar.</h2>
+
+        <div class="stats">
+          <div class="stat">
+            <div class="stat-num">+700</div>
+            <div class="stat-label">Licitaciones monitoreadas por día</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num">+43.000</div>
+            <div class="stat-label">Adjudicaciones en nuestra base histórica</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num">2 portales</div>
+            <div class="stat-label">Nación (COMPR.AR) + Provincia (PBAC)</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num">IA</div>
+            <div class="stat-label">Análisis automático de cada pliego</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         PARA QUIÉN ES
+         ========================================================= -->
+    <section class="section">
+      <div class="container">
+        <div class="audience-wrap">
+          <span class="eyebrow">Para quién es</span>
+          <h2>Pymes argentinas que le venden — o quieren venderle — al Estado.</h2>
+          <p>Si tu empresa es proveedora del sector público o le interesa serlo, Adjudica trabaja para vos. Acompañamos a pymes de toda Argentina en distintos rubros:</p>
+
+          <div class="industries">
+            <span class="industry">🧴 Limpieza e higiene</span>
+            <span class="industry">🩺 Insumos médicos</span>
+            <span class="industry">🍎 Alimentos</span>
+            <span class="industry">🔧 Ferretería</span>
+            <span class="industry">💻 Informática</span>
+            <span class="industry">📦 Logística</span>
+            <span class="industry">🧰 Mantenimiento</span>
+            <span class="industry">✏️ Insumos de oficina</span>
+            <span class="industry">… y más</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         CTA FINAL
+         ========================================================= -->
+    <section class="final-cta">
+      <div class="container">
+        <div class="final-cta-card">
+          <h2>Probá Adjudica una semana, gratis.</h2>
+          <p>Sin tarjeta, sin compromiso. Te armamos tu perfil y mañana mismo empezás a recibir tu radar de licitaciones.</p>
+
+          <a
+            class="btn btn-primary btn-large"
+            href="https://wa.me/5492216615155?text=Hola!%20Quiero%20saber%20m%C3%A1s%20sobre%20Adjudica%20y%20la%20prueba%20gratis%20📡"
+            target="_blank"
+            rel="noopener"
+          >
+            <svg class="wa-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M19.05 4.91A9.82 9.82 0 0 0 12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91a9.82 9.82 0 0 0-2.9-7.01zM12.05 20.15h-.01a8.22 8.22 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.18 8.18 0 0 1-1.26-4.38c0-4.54 3.7-8.23 8.25-8.23 2.2 0 4.27.86 5.83 2.42a8.19 8.19 0 0 1 2.41 5.83c0 4.54-3.69 8.22-8.24 8.22zm4.51-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.12-.16.25-.64.81-.79.97-.14.16-.29.18-.54.06-.25-.12-1.05-.39-2-1.23a7.5 7.5 0 0 1-1.38-1.72c-.14-.25-.02-.38.11-.5.11-.11.25-.29.37-.43.12-.14.16-.25.25-.41.08-.16.04-.31-.02-.43-.06-.12-.56-1.35-.77-1.85-.2-.49-.41-.42-.56-.43-.14-.01-.31-.01-.48-.01-.16 0-.43.06-.66.31-.23.25-.86.84-.86 2.06 0 1.21.88 2.38 1 2.54.12.16 1.73 2.64 4.2 3.7.59.25 1.05.4 1.4.52.59.19 1.13.16 1.55.1.47-.07 1.47-.6 1.67-1.18.2-.58.2-1.07.14-1.18-.06-.1-.23-.16-.48-.28z"/>
+            </svg>
+            Quiero probar gratis por WhatsApp
+          </a>
+
+          <div class="final-cta-note">Te contestamos en horario hábil · 9 a 18hs</div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- =========================================================
+       FOOTER
+       ========================================================= -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="brand">
+            <span>Adjudica</span>
+            <span class="brand-radar" aria-hidden="true">📡</span>
+          </div>
+          <p>Radar de licitaciones para pymes argentinas. Lo que el Estado compra, en tu mail cada mañana.</p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Contacto</h4>
+          <ul>
+            <li>
+              <a href="https://wa.me/5492216615155?text=Hola!%20Quiero%20saber%20m%C3%A1s%20sobre%20Adjudica%20y%20la%20prueba%20gratis%20📡" target="_blank" rel="noopener">
+                WhatsApp · 221 6615155
+              </a>
+            </li>
+            <li>
+              <a href="mailto:licitacionesadjudica@gmail.com">
+                licitacionesadjudica@gmail.com
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Fuentes</h4>
+          <ul>
+            <li>COMPR.AR · Nación</li>
+            <li>Buenos Aires Compras · PBAC</li>
+            <li>Actualizado todos los días hábiles</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        Adjudica · Argentina · © 2025
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
